@@ -298,6 +298,18 @@ input[type="range"] {
   padding: 8px 10px;
 }
 
+.match-result.listening {
+  background: #f3f7fb;
+  border-color: #d7e6f3;
+  color: #24495f;
+}
+
+.match-result.warning {
+  background: #fff7ed;
+  border-color: #edd3b5;
+  color: #70410f;
+}
+
 .empty {
   background: var(--surface);
   border: 1px dashed var(--line);
