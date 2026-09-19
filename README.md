@@ -1,72 +1,69 @@
-# French for Paris Job Search – 1 Month Learning Pack
+# French Learning Plan
 
-This folder contains a practical French study plan designed for a person who wants to:
-- learn French from basic to useful professional level
-- prepare for a job search in Paris
-- speak more naturally and confidently in interviews
-- improve listening, speaking, and written communication
-- use Codex as a tutor and practice partner
+A local-first French speaking and listening plan for daily life, job search, and professional conversations in France.
 
-## Learning goal
-By the end of this plan, you should be able to:
-- introduce yourself in French
-- handle daily life conversations
-- understand and reply to job ads and recruiter questions
-- write a basic CV and cover letter in French
-- speak in professional and interview situations
-- function in a French workplace environment
+The course is realistic about pronunciation: browser text-to-speech is useful for repetition, but native-level pronunciation should be checked against IPA notes, your own recordings, and free-licensed human recordings when available.
 
-## Study method
-- Study 2–3 hours per day
-- Use the weekly lessons in order
-- Complete the exercises and tests at the end of each week
-- Speak out loud every day
-- Use Codex to practice conversations, corrections, and vocabulary
+## Start The Pronunciation Coach
 
-## Weekly structure
-1. Week 1 – Basic French survival
-2. Week 2 – Daily life and workplace French
-3. Week 3 – Job search and interviews
-4. Week 4 – Advanced professional communication
+Windows PowerShell:
 
-## Files in this pack
-- [Week_1_Basic_Survival_French.md](Week_1_Basic_Survival_French.md)
-- [Week_1_Exercises.md](Week_1_Exercises.md)
-- [Week_1_Test.md](Week_1_Test.md)
-- [Week_2_Daily_Life_and_Workplace_French.md](Week_2_Daily_Life_and_Workplace_French.md)
-- [Week_2_Exercises.md](Week_2_Exercises.md)
-- [Week_2_Test.md](Week_2_Test.md)
-- [Week_3_Job_Search_and_Interviews_French.md](Week_3_Job_Search_and_Interviews_French.md)
-- [Week_3_Exercises.md](Week_3_Exercises.md)
-- [Week_3_Test.md](Week_3_Test.md)
-- [Week_4_Advanced_Professional_French.md](Week_4_Advanced_Professional_French.md)
-- [Week_4_Exercises.md](Week_4_Exercises.md)
-- [Week_4_Test.md](Week_4_Test.md)
-- [Codex_Study_Prompts.md](Codex_Study_Prompts.md)
+```powershell
+.\scripts\serve.ps1
+```
 
-## Daily practice template
-- 30 min pronunciation and listening
-- 45 min grammar and sentence patterns
-- 45 min vocabulary and speaking practice
-- 30 min job-related conversation or interview practice
-- 15 min review and writing practice
+macOS or Linux:
 
-## Best Codex use
-Use Codex as:
-- a tutor to explain grammar
-- a pronunciation coach
-- a conversation partner
-- a mock recruiter
-- a vocabulary generator
-- a proofreader for your French writing
+```bash
+sh scripts/serve.sh
+```
 
-## Recommended study order
-- Read the weekly lesson
-- Complete the exercises
-- Take the weekly test
-- Use Codex prompts from [Codex_Study_Prompts.md](Codex_Study_Prompts.md)
-- Repeat the week until you feel confident
+Then open:
 
----
+```text
+http://127.0.0.1:5173/app/pronunciation-coach/
+```
 
-This plan is designed to help you become job-ready in France within one month, with emphasis on speaking, confidence, and professional communication.
+You can also open [app/pronunciation-coach/index.html](app/pronunciation-coach/index.html) directly, but microphone recording works more reliably from `localhost`.
+
+## Course Structure
+
+- [Course plan](course/learning-plan.md)
+- [Pronunciation guide](course/pronunciation-guide.md)
+- [Speaking and listening plan](course/listening-speaking-plan.md)
+- [Free audio sources and licensing](course/free-audio-sources.md)
+- [Week 1 lesson](course/lessons/week-01-survival.md)
+- [Week 2 lesson](course/lessons/week-02-daily-life-workplace.md)
+- [Week 3 lesson](course/lessons/week-03-job-search-interviews.md)
+- [Week 4 lesson](course/lessons/week-04-professional-french.md)
+- [Exercises](course/exercises/)
+- [Tests](course/tests/)
+- [Tutor prompts](prompts/codex-study-prompts.md)
+
+## Design Choices
+
+- UTF-8 French text with accents fixed.
+- No Google Translate audio URLs or paid/CDN dependencies.
+- Static browser app with feature detection for Chrome, Edge, Safari, and Firefox.
+- Optional speech recognition only where supported; recording and self-review are always the main practice path.
+- Audio folder and attribution manifest ready for Wikimedia Commons, Lingua Libre, Common Voice, or your own recordings.
+
+## Optional Free Audio
+
+The app works without downloaded audio. To fetch the vetted Wikimedia starter pronunciations when your network allows it:
+
+```bash
+npm run fetch-audio
+```
+
+Downloaded files go to `assets/audio/`, and attribution is written to `assets/audio/manifest.csv`.
+
+## Daily Study Rhythm
+
+- 20 minutes: pronunciation drills and shadowing.
+- 25 minutes: listening and dictation.
+- 35 minutes: grammar and sentence patterns.
+- 30 minutes: speaking roleplay.
+- 20 minutes: writing or review.
+
+One month can build strong survival and job-search French. It will not make a beginner fully fluent, so the plan favors high-frequency phrases, accurate sounds, and repeatable speaking routines.

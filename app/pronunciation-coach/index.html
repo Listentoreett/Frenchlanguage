@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>French Pronunciation Coach</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">French Learning Plan</p>
+        <h1>Pronunciation Coach</h1>
+      </div>
+      <nav class="toplinks" aria-label="Course links">
+        <a href="../../course/learning-plan.md">Plan</a>
+        <a href="../../course/pronunciation-guide.md">Pronunciation</a>
+        <a href="../../course/listening-speaking-plan.md">Speaking</a>
+      </nav>
+    </header>
+
+    <main class="layout">
+      <section class="controls" aria-label="Practice controls">
+        <label>
+          Week
+          <select id="weekFilter">
+            <option value="all">All weeks</option>
+          </select>
+        </label>
+
+        <label>
+          Theme
+          <select id="themeFilter">
+            <option value="all">All themes</option>
+          </select>
+        </label>
+
+        <label>
+          Search
+          <input id="searchInput" type="search" placeholder="phrase or meaning">
+        </label>
+
+        <label>
+          Voice
+          <select id="voiceSelect">
+            <option value="">Auto French voice</option>
+          </select>
+        </label>
+
+        <label>
+          Speed
+          <input id="rateInput" type="range" min="0.65" max="1.05" value="0.88" step="0.01">
+        </label>
+
+        <div class="control-actions">
+          <button id="playListButton" type="button">Listen list</button>
+          <button id="stopButton" type="button" class="secondary">Stop</button>
+        </div>
+      </section>
+
+      <section class="status-strip" aria-live="polite">
+        <div>
+          <strong id="phraseCount">0 phrases</strong>
+          <span id="supportStatus"></span>
+        </div>
+        <span id="appStatus">Ready.</span>
+      </section>
+
+      <section id="phraseList" class="phrase-list" aria-label="French phrases"></section>
+    </main>
+
+    <script src="../../data/phrases.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

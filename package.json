@@ -1,0 +1,11 @@
+{
+  "name": "french-learning-plan",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node scripts/server.mjs",
+    "fetch-audio": "node scripts/fetch-audio.mjs",
+    "check": "node --check app/pronunciation-coach/app.js && node --check data/phrases.js && node --check scripts/server.mjs && node --check scripts/fetch-audio.mjs"
+  }
+}
