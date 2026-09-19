@@ -131,7 +131,7 @@ h1 {
   box-shadow: 0 10px 26px var(--shadow);
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(5, minmax(120px, 1fr)) auto;
+  grid-template-columns: repeat(6, minmax(116px, 1fr)) auto;
   padding: 14px;
 }
 
@@ -296,6 +296,18 @@ input[type="range"] {
   border-radius: 8px;
   color: #304538;
   padding: 8px 10px;
+}
+
+.match-result.listening {
+  background: #f3f7fb;
+  border-color: #d7e6f3;
+  color: #24495f;
+}
+
+.match-result.warning {
+  background: #fff7ed;
+  border-color: #edd3b5;
+  color: #70410f;
 }
 
 .empty {
