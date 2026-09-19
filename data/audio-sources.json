@@ -1,0 +1,38 @@
+[
+  {
+    "phraseId": "bonjour",
+    "localFilename": "fr-bonjour.oga",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Fr-BonjourF.oga",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b9/Fr-BonjourF.oga",
+    "authorOrSpeaker": "Arka Voltchek",
+    "license": "CC BY 2.5",
+    "attribution": "Arka Voltchek, CC BY 2.5, via Wikimedia Commons"
+  },
+  {
+    "phraseId": "merci",
+    "localFilename": "fr-merci.oga",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Fr-Merci_2.oga",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/Fr-Merci_2.oga",
+    "authorOrSpeaker": "Arka Voltchek",
+    "license": "CC BY 2.5",
+    "attribution": "Arka Voltchek, CC BY 2.5, via Wikimedia Commons"
+  },
+  {
+    "phraseId": "bonsoir",
+    "localFilename": "fr-bonsoir.ogg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Fr-bonsoir.ogg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Fr-bonsoir.ogg",
+    "authorOrSpeaker": "Vion Nicolas",
+    "license": "CC BY 2.0 fr",
+    "attribution": "Vion Nicolas, CC BY 2.0 fr, via Wikimedia Commons"
+  },
+  {
+    "phraseId": "salut",
+    "localFilename": "fr-salut.ogg",
+    "sourcePage": "https://commons.wikimedia.org/wiki/File:Fr-salut.ogg",
+    "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Fr-salut.ogg",
+    "authorOrSpeaker": "Vion Nicolas",
+    "license": "CC BY 2.0 fr",
+    "attribution": "Vion Nicolas, CC BY 2.0 fr, via Wikimedia Commons"
+  }
+]
