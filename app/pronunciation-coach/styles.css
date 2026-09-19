@@ -131,7 +131,7 @@ h1 {
   box-shadow: 0 10px 26px var(--shadow);
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(5, minmax(120px, 1fr)) auto;
+  grid-template-columns: repeat(6, minmax(116px, 1fr)) auto;
   padding: 14px;
 }
 

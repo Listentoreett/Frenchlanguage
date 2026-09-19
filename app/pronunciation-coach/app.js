@@ -9,6 +9,7 @@ const state = {
   theme: "all",
   search: "",
   rate: 0.88,
+  strictness: "very-strict",
   playingList: false,
   activeAudio: null,
   recorder: null,
@@ -25,6 +26,7 @@ const elements = {
   searchInput: document.querySelector("#searchInput"),
   voiceSelect: document.querySelector("#voiceSelect"),
   rateInput: document.querySelector("#rateInput"),
+  strictnessSelect: document.querySelector("#strictnessSelect"),
   playListButton: document.querySelector("#playListButton"),
   stopButton: document.querySelector("#stopButton"),
   phraseCount: document.querySelector("#phraseCount"),
@@ -64,6 +66,11 @@ function bindEvents() {
 
   elements.rateInput.addEventListener("input", (event) => {
     state.rate = Number(event.target.value);
+  });
+
+  elements.strictnessSelect.addEventListener("change", (event) => {
+    state.strictness = event.target.value;
+    setStatus(`Matching strictness set to ${titleCase(state.strictness)}.`);
   });
 
   elements.playListButton.addEventListener("click", playVisibleList);
@@ -526,7 +533,7 @@ function startRecognition(phrase) {
     }
 
     const confidence = Math.round((event.results[0][0].confidence || 0) * 100);
-    const score = scoreTranscript(phrase.french, transcript);
+    const score = scoreTranscript(phrase.french, transcript, confidence);
     clearRecognitionTimeout();
     showMatchResult(phrase.id, transcript, score, confidence);
     setMatchButtonsIdle();
@@ -642,33 +649,79 @@ function showMatchResult(phraseId, transcript, score, confidence) {
   result.className = "match-result";
 
   const scoreLine = document.createElement("strong");
-  scoreLine.textContent = `Transcript match: ${score}%`;
+  scoreLine.textContent = `${titleCase(state.strictness)} transcript match: ${score}%`;
 
   const transcriptLine = document.createElement("div");
   transcriptLine.textContent = `Heard: ${transcript}`;
 
   const note = document.createElement("div");
   note.textContent = confidence
-    ? `Recognition confidence: ${confidence}%. This is not a native accent score.`
-    : "This checks recognized words, not native accent quality.";
+    ? `Recognition confidence: ${confidence}%. This is stricter, but still not native phoneme scoring.`
+    : "This checks recognized words strictly, not exact native phoneme quality.";
 
   result.append(scoreLine, transcriptLine, note);
   slot.append(result);
 }
 
-function scoreTranscript(target, transcript) {
+function scoreTranscript(target, transcript, confidence = 0) {
   const a = normalizeForScore(target);
   const b = normalizeForScore(transcript);
   if (!a || !b) return 0;
-  if (a === b) return 100;
 
   const distance = levenshtein(a, b);
   const similarity = 1 - distance / Math.max(a.length, b.length);
-  const targetWords = new Set(a.split(" ").filter(Boolean));
-  const spokenWords = new Set(b.split(" ").filter(Boolean));
-  const covered = [...targetWords].filter((word) => spokenWords.has(word)).length;
-  const coverage = targetWords.size ? covered / targetWords.size : 0;
-  return Math.max(0, Math.min(100, Math.round((similarity * 0.55 + coverage * 0.45) * 100)));
+  const targetWords = a.split(" ").filter(Boolean);
+  const spokenWords = b.split(" ").filter(Boolean);
+  const confidenceRatio = confidence > 0 ? confidence / 100 : 0.72;
+
+  if (state.strictness === "normal") {
+    const targetWordSet = new Set(targetWords);
+    const spokenWordSet = new Set(spokenWords);
+    const covered = [...targetWordSet].filter((word) => spokenWordSet.has(word)).length;
+    const coverage = targetWordSet.size ? covered / targetWordSet.size : 0;
+    return clampScore((similarity * 0.55 + coverage * 0.45) * 100);
+  }
+
+  const orderedRatio = orderedWordRatio(targetWords, spokenWords);
+  const lengthRatio = Math.min(a.length, b.length) / Math.max(a.length, b.length);
+  const sameWordCount = targetWords.length === spokenWords.length;
+  const exactPhrase = a === b;
+
+  if (state.strictness === "strict") {
+    let score = (similarity * 0.42 + orderedRatio * 0.38 + lengthRatio * 0.12 + confidenceRatio * 0.08) * 100;
+    if (!exactPhrase) score = Math.min(score, 88);
+    if (!sameWordCount) score = Math.min(score, 72);
+    if (orderedRatio < 1) score = Math.min(score, 82);
+    return clampScore(score);
+  }
+
+  if (exactPhrase) {
+    return clampScore(confidence > 0 ? 82 + confidenceRatio * 18 : 88);
+  }
+
+  let score = (similarity * 0.34 + orderedRatio * 0.46 + lengthRatio * 0.1 + confidenceRatio * 0.1) * 100;
+  score = Math.min(score, 72);
+  if (!sameWordCount) score = Math.min(score, 58);
+  if (orderedRatio < 0.75) score = Math.min(score, 45);
+  return clampScore(score);
+}
+
+function orderedWordRatio(targetWords, spokenWords) {
+  const maxWords = Math.max(targetWords.length, spokenWords.length);
+  if (!maxWords) return 0;
+
+  let matches = 0;
+  for (let index = 0; index < maxWords; index += 1) {
+    if (targetWords[index] && spokenWords[index] && targetWords[index] === spokenWords[index]) {
+      matches += 1;
+    }
+  }
+
+  return matches / maxWords;
+}
+
+function clampScore(score) {
+  return Math.max(0, Math.min(100, Math.round(score)));
 }
 
 function normalizeForScore(text) {
